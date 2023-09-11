@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class SpawnPoint : MonoBehaviour
 {
-    bool isSpawnSet;
-    [SerializeField] Transform spawnCoordinates;
-    [SerializeField] GameObject playerObject;
+    bool isSpawnAlreadySet;
+    [SerializeField] public Transform spawnCoordinates;
+    SpawnManager spawnManager;
     void Start()
     {
-        
+        spawnManager = FindObjectOfType<SpawnManager>();
     }
 
     // Update is called once per frame
@@ -20,12 +20,10 @@ public class SpawnPoint : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        isSpawnSet = true;
-        Debug.Log("SpawnPoint set");
+        if (isSpawnAlreadySet)
+            return;
+        isSpawnAlreadySet = true;
+        spawnManager.UpdatePointNumber(this);
     }
 
-    public void SpawnPlayer()
-    {
-        playerObject.transform.position = spawnCoordinates.position;
-    }
 }

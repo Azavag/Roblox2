@@ -43,9 +43,9 @@ GameObject:
   - component: {fileID: 2854345384643137035}
   - component: {fileID: 2034508287520795411}
   - component: {fileID: 4578408239466935427}
-  - component: {fileID: 2024253073576126182}
+  - component: {fileID: 3486878862237118860}
   m_Layer: 0
-  m_Name: SpawnPlace
+  m_Name: SpawnPoint_28
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -129,11 +129,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4184077f85f55c4089e7271508f7164, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnCoordinates: {fileID: 1437571682741429445}
-  playerObject: {fileID: 7395722787109987605, guid: 5c566a069e8d3314da0b45e52a657732,
-    type: 3}
---- !u!136 &2024253073576126182
-CapsuleCollider:
+  spawnCoordinates: {fileID: 7394006053121470266}
+--- !u!65 &3486878862237118860
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -150,11 +148,9 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+  serializedVersion: 3
+  m_Size: {x: 2, y: 4, z: 2}
+  m_Center: {x: 0, y: 1, z: -0.00000011920929}
 --- !u!1001 &593278912939172933
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -166,17 +162,17 @@ PrefabInstance:
     - target: {fileID: 1697608826385523232, guid: a7a8c8c4c3033ab419b304ddeee1898d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 85.4
       objectReference: {fileID: 0}
     - target: {fileID: 1697608826385523232, guid: a7a8c8c4c3033ab419b304ddeee1898d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 41.33
       objectReference: {fileID: 0}
     - target: {fileID: 1697608826385523232, guid: a7a8c8c4c3033ab419b304ddeee1898d,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -124.53
       objectReference: {fileID: 0}
     - target: {fileID: 1697608826385523232, guid: a7a8c8c4c3033ab419b304ddeee1898d,
         type: 3}
@@ -237,7 +233,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 2100dbbcbd9ee254d8f47fe7d5d95a7e, type: 2}
+      objectReference: {fileID: 2100000, guid: 730a9a4f0ebd0de4c942a40945c36423, type: 2}
     - target: {fileID: 6428572892817717677, guid: a7a8c8c4c3033ab419b304ddeee1898d,
         type: 3}
       propertyPath: m_Name
