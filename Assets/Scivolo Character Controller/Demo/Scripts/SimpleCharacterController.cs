@@ -6,8 +6,10 @@ using UnityEngine;
 
 namespace MenteBacata.ScivoloCharacterControllerDemo
 {
+    
     public class SimpleCharacterController : MonoBehaviour
     {
+
         public float moveSpeed = 5f;
 
         public float jumpSpeed = 8f;
@@ -49,17 +51,21 @@ namespace MenteBacata.ScivoloCharacterControllerDemo
 
         private MovingPlatform movingPlatform;
 
+        Animator animator;
 
         private void Start()
         {
             cameraTransform = Camera.main.transform;
             mover.canClimbSteepSlope = true;
+            animator = GetComponentInChildren<Animator>();
         }
 
         private void Update()
         {
             float deltaTime = Time.deltaTime;
             Vector3 movementInput = GetMovementInput();
+            animator.SetFloat("Movement", movementInput.sqrMagnitude);
+
 
             Vector3 velocity = moveSpeed * movementInput;
             
@@ -73,6 +79,8 @@ namespace MenteBacata.ScivoloCharacterControllerDemo
 
             if (isGrounded && Input.GetButtonDown("Jump"))
             {
+                Debug.Log("Прыжок");
+                animator.SetBool("isJump", true);
                 verticalSpeed = jumpSpeed;
                 nextUngroundedTime = -1f;
                 isGrounded = false;
@@ -80,6 +88,7 @@ namespace MenteBacata.ScivoloCharacterControllerDemo
 
             if (isGrounded)
             {
+                animator.SetBool("isJump", false);
                 mover.mode = CharacterMover.Mode.Walk;
                 verticalSpeed = 0f;
 
@@ -93,7 +102,7 @@ namespace MenteBacata.ScivoloCharacterControllerDemo
                 BounceDownIfTouchedCeiling();
 
                 verticalSpeed += gravity * deltaTime;
-
+                
                 if (verticalSpeed < minVerticalSpeed)
                     verticalSpeed = minVerticalSpeed;
 
@@ -103,6 +112,7 @@ namespace MenteBacata.ScivoloCharacterControllerDemo
             RotateTowards(velocity);
 
             mover.Move(velocity * deltaTime, groundDetected, groundInfo, overlapCount, overlaps, moveContacts, out contactCount);
+            animator.SetFloat("FallSpeed", verticalSpeed);
         }
 
         private void LateUpdate()
@@ -153,7 +163,10 @@ namespace MenteBacata.ScivoloCharacterControllerDemo
         private void SetGroundedIndicatorColor(bool isGrounded)
         {
             if (groundedIndicator != null)
+            {
+                
                 groundedIndicator.material.color = isGrounded ? Color.green : Color.blue;
+            }
         }
 
         private void RotateTowards(Vector3 direction)

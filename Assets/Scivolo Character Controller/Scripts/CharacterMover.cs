@@ -137,7 +137,7 @@ namespace MenteBacata.ScivoloCharacterController
             {
                 MoveForSimpleSlide(ref position, desiredMovement, overlapCount, overlaps, moveContacts, out contactCount);
             }
-
+            
             capsule.Position = position;
         }
 

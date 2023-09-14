@@ -1,33 +1,33 @@
+using MenteBacata.ScivoloCharacterControllerDemo;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Xml.Linq;
 using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
     [SerializeField] List<SpawnPoint> spawnPointsList;
-    int lastSpawnPoint = 0;
+    [SerializeField] int lastSpawnPoint;
     bool isPlayerDied;
     [SerializeField] GameObject playerObject;
+    [SerializeField] GameObject deathMenu;
+    [SerializeField] GameObject cameraObject;
+
     private void Awake()
     {
-        spawnPointsList = FindObjectsOfType<SpawnPoint>().ToList();
-        spawnPointsList.Sort((a, b) => a.name.CompareTo(b.name));
-       // Array.Sort(spawnPointsList, (a, b) => a.name.CompareTo(b.name));
+        
     }
-
     void Start()
     {
-        //ChooseSpawnPoint();
-        
+        //RespawnPlayer();
     }
 
     public void UpdatePointNumber(SpawnPoint point)
     {
         lastSpawnPoint = spawnPointsList.IndexOf(point);
-        Debug.Log(lastSpawnPoint);
     }
 
     // Update is called once per frame
@@ -39,6 +39,20 @@ public class SpawnManager : MonoBehaviour
 
     public void RespawnPlayer()
     {
+        cameraObject.GetComponent<OrbitingCamera>().enabled = true;
+        deathMenu.SetActive(false);
+        playerObject.SetActive(true);
         playerObject.transform.position = spawnPointsList[lastSpawnPoint].spawnCoordinates.position;
     }
+
+    public void ShowDeathMenu()
+    {
+        playerObject.SetActive(false);
+        cameraObject.GetComponent<OrbitingCamera>().enabled = false;
+        deathMenu.SetActive(true);
+    }
+
+
+
+    
 }
