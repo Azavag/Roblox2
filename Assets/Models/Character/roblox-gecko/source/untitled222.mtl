@@ -1,0 +1,54 @@
+# Blender MTL File: 'None'
+# Material Count: 4
+
+newmtl 1Mtl
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.103634 0.329729 0.069727
+Ks 0.014468 0.014468 0.014468
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Bump 1_nmap.png
+map_Kd 1_diff.png
+map_d 1_diff.png
+
+newmtl Handle1Mtl
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.373615 0.368591 0.383775
+Ks 0.032381 0.032381 0.032381
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Bump Handle1_nmap.png
+map_Kd Handle1_diff.png
+map_d Handle1_diff.png
+
+newmtl Handle2Mtl
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.373615 0.368591 0.383775
+Ks 0.032381 0.032381 0.032381
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Bump Handle2_nmap.png
+map_Kd Handle2_diff.png
+map_d Handle2_diff.png
+
+newmtl Handle3Mtl
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.373615 0.368591 0.383775
+Ks 0.032381 0.032381 0.032381
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Bump Handle3_nmap.png
+map_Kd Handle3_diff.png
+map_d Handle3_diff.png
