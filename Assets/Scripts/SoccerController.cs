@@ -1,3 +1,4 @@
+using MenteBacata.ScivoloCharacterControllerDemo;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -38,7 +39,7 @@ public class SoccerController : MonoBehaviour
         }
 
     }
-
+    //Перемещение мяча
     void PassBool()
     {
         vectorBetweenObjects = (postObject.transform.position
@@ -48,9 +49,10 @@ public class SoccerController : MonoBehaviour
         ballObject.GetComponent<Rigidbody>().AddForce(vectorBetweenObjects * kickPower,
               ForceMode.Impulse);
     }
-
+    //Установка персонажа
     void MoveCharacter()
     {
+        playerObject.GetComponent<SimpleCharacterController>().enabled = false;
         playerObject.transform.position = playerStandPoint.position;
         playerObject.transform.rotation = Quaternion.LookRotation(playerStandPoint.forward);
     }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class MoneyManager : MonoBehaviour
 {
-    int moneyCount;
+    [SerializeField] int moneyCount;
     [SerializeField] int moneyMax;
     [SerializeField] TextMeshProUGUI moneyTextField;
     void Start()
@@ -25,4 +25,11 @@ public class MoneyManager : MonoBehaviour
         string tempText = moneyCount + "/" + moneyMax;
         moneyTextField.text = tempText;
     }
+
+
+    public int GetMoneyCount()
+    {
+        return moneyCount;
+    }
+
 }

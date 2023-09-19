@@ -1,3 +1,4 @@
+using MenteBacata.ScivoloCharacterControllerDemo;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,7 @@ public class BallReturn : MonoBehaviour
     [SerializeField] GameObject ballObject;
     [SerializeField] GameObject coinObject;
     bool isAlreadyRewarded;
+    [SerializeField] GameObject playerObject;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +21,9 @@ public class BallReturn : MonoBehaviour
     {
         if (other.CompareTag("Ball"))
         {
+            if (!playerObject.GetComponent<SimpleCharacterController>().enabled)
+                playerObject.GetComponent<SimpleCharacterController>().enabled = true;
+
             if (!isAlreadyRewarded)
             {
                 coinObject.SetActive(true);
