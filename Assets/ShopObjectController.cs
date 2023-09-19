@@ -16,24 +16,22 @@ public class ShopObjectController : MonoBehaviour
 {
     [SerializeField] public bool isBuy;
     [SerializeField] public bool isChoose;
-    [SerializeField] int colorPrice;
+    [SerializeField] public bool isAdsSell;
+    [SerializeField] public int price;
     [SerializeField] public string colorName;
     GameObject lockImageObject, chooseImageObject;
-    [SerializeField] public typeOfSkin bodyType;
+    [SerializeField] public typeOfSkin skinType;
     [SerializeField] ShopChooseController shopChooseController;
 
-    void Awake()
+    private void Awake()
     {
-        lockImageObject = transform.GetChild(1).gameObject;
+        lockImageObject = transform.GetChild(1).gameObject;     
         chooseImageObject = transform.GetChild(2).gameObject;
-    }
-
-    private void Start()
-    {
-        if (!isBuy)
-            ShowLockImage(true);
-        if(isChoose)
-            ShowChooseImage(true);
+       
+        //if (isBuy)
+        //    ShowLockImage(false);
+        //if(!isChoose)
+        //    ShowChooseImage(false);
     }
 
     public void OnClickButton()

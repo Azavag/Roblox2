@@ -21,8 +21,7 @@ public class BodySkinsController : MonoBehaviour
     [Header("Контроллеры")]
     [SerializeField] MoneyManager moneyManager;
     void Start()
-    {
-        
+    {     
         colorsDict.Add("green", materialsArray[0]);
         colorsDict.Add("blue", materialsArray[1]);
         colorsDict.Add("yellow", materialsArray[2]);
@@ -40,12 +39,12 @@ public class BodySkinsController : MonoBehaviour
         specialBodiesDict.Add("pig", specialBodiesArray[4]);
         specialBodiesDict.Add("spider", specialBodiesArray[5]);
 
-        specialHatsDict.Add("doge", specialBodiesArray[0]);
-        specialHatsDict.Add("bomb", specialBodiesArray[1]);
-        specialHatsDict.Add("hair", specialBodiesArray[2]);
-        specialHatsDict.Add("cape", specialBodiesArray[3]);
-        specialHatsDict.Add("pig", specialBodiesArray[4]);
-        specialHatsDict.Add("spider", specialBodiesArray[5]);
+        specialHatsDict.Add("doge", specialHatsArray[0]);
+        specialHatsDict.Add("bomb", specialHatsArray[1]);
+        specialHatsDict.Add("hair", specialHatsArray[2]);
+        specialHatsDict.Add("cape", specialHatsArray[3]);
+        specialHatsDict.Add("pig", specialHatsArray[4]);
+        specialHatsDict.Add("spider", specialHatsArray[5]);
     }
 
 
