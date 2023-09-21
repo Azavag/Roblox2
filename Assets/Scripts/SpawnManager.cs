@@ -16,27 +16,22 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] GameObject deathMenu;
     [SerializeField] GameObject cameraObject;
 
-    private void Awake()
-    {
-        
-    }
-    void Start()
-    {
-        //RespawnPlayer();
-    }
 
     public void UpdatePointNumber(SpawnPoint point)
     {
         lastSpawnPoint = spawnPointsList.IndexOf(point);
     }
-
+    public void UpdatePointNumber(int pointNumber)
+    {
+        lastSpawnPoint = pointNumber;
+    }
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.R))
             RespawnPlayer();
     }
-
+    //По кнопке перерождения
     public void RespawnPlayer()
     {
         cameraObject.GetComponent<OrbitingCamera>().enabled = true;

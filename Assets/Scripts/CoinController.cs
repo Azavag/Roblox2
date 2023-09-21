@@ -7,7 +7,7 @@ public class CoinController : MonoBehaviour
     MoneyManager moneyManager;
     [SerializeField] int moneyForCollect;
     [SerializeField] GameObject coinObject;
-    bool isCoinCollect;
+    public bool isCoinCollect;         //для сохранения
     ParticleSystem particles;
    
     private void Awake()
@@ -21,12 +21,6 @@ public class CoinController : MonoBehaviour
             coinObject.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (isCoinCollect)
@@ -38,8 +32,19 @@ public class CoinController : MonoBehaviour
     void Collecting()
     {
         particles.Play();
-;        moneyManager.UpdateMoneyCount(moneyForCollect);
+;       moneyManager.UpdateMoneyCount(moneyForCollect);
         isCoinCollect = true;
         coinObject.SetActive(false);
+    }
+
+    public int GetMoneyForCollect()
+    {
+        return moneyForCollect;
+    }
+
+    public void ResetCoin()
+    {
+        isCoinCollect = false;
+        coinObject.SetActive(true);
     }
 }
