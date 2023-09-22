@@ -10,9 +10,10 @@ public class BallReturn : MonoBehaviour
     [SerializeField] GameObject coinObject;
     bool isAlreadyRewarded;
     [SerializeField] GameObject playerObject;
-    // Start is called before the first frame update
+    SoundController soundController;
     void Start()
     {
+        soundController = FindObjectOfType<SoundController>();
         coinObject.SetActive(false);
     }
 
@@ -26,6 +27,7 @@ public class BallReturn : MonoBehaviour
 
             if (!isAlreadyRewarded)
             {
+                soundController.Play("Success");
                 coinObject.SetActive(true);
                 isAlreadyRewarded = true;
             }

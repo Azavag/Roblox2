@@ -26,12 +26,7 @@ public class ShopObjectController : MonoBehaviour
     private void Awake()
     {
         lockImageObject = transform.GetChild(1).gameObject;     
-        chooseImageObject = transform.GetChild(2).gameObject;
-       
-        //if (isBuy)
-        //    ShowLockImage(false);
-        //if(!isChoose)
-        //    ShowChooseImage(false);
+        chooseImageObject = transform.GetChild(2).gameObject;      
     }
 
     public void OnClickButton()

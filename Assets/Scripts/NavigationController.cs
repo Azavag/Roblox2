@@ -24,6 +24,12 @@ public class NavigationController : MonoBehaviour
     bool isSettings;
     bool isGame;
 
+    SoundController soundController;
+
+    private void Awake()
+    {
+        soundController = FindObjectOfType<SoundController>();
+    }
     void Start()
     {
         startCanvas.SetActive(true);
@@ -42,8 +48,11 @@ public class NavigationController : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Tab)) 
         {
-            if(!isPause)
+            if (!isPause)
+            {
+                soundController.MakeClickSound();
                 ShowPauseMenu();
+            }
         }
     }
 

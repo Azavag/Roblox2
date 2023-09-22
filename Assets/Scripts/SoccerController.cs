@@ -14,11 +14,12 @@ public class SoccerController : MonoBehaviour
     float kickPower = 10f;
     bool isPlayerReady;
     bool isAnimation;
-    
+    SoundController soundController;
     // Start is called before the first frame update
     void Start()
     {
         playerAnimator = playerObject.GetComponentInChildren<Animator>();
+        soundController = FindObjectOfType<SoundController>();
     }
 
     // Update is called once per frame
@@ -34,6 +35,7 @@ public class SoccerController : MonoBehaviour
         {
             float animationLength = playerAnimator.GetCurrentAnimatorStateInfo(0).length;
             Invoke("PassBool", animationLength / 3.75f);
+            soundController.Play("BallKick");
             playerAnimator.SetBool("isPass", false);
             isAnimation = false;
         }

@@ -14,9 +14,13 @@ public class ShopChooseController : MonoBehaviour
     [SerializeField] BodySkinsController bodySkinsController;
     [SerializeField] GameObject buyButtonObject;
     [SerializeField] BuySkinButtonController buySkinButtonController;
+    [SerializeField] SoundController soundController;
     void Start()
     {
         buyButtonObject.SetActive(false);
+        choosedShirtName = Progress.Instance.playerInfo.choosedShirtColor;
+        choosedPantsName = Progress.Instance.playerInfo.choosedPantsColor;
+        choosedSpecialName = Progress.Instance.playerInfo.choosedSpecialColor;
         foreach (ShopObjectController obj in shirtColorsArray)
         {
             if (!obj.isBuy)
@@ -44,13 +48,14 @@ public class ShopChooseController : MonoBehaviour
     //По кнопке
     public void CheckClick(ShopObjectController shopObject)
     {
+        soundController.Play("Select");
         ShowBuyButton(!shopObject.isBuy);
         buySkinButtonController.ShowInfo(shopObject);
 
         if (shopObject.isChoose)
             return;
         else if (shopObject.isBuy)
-        {                      
+        {          
             switch (shopObject.skinType)
             {
                 case typeOfSkin.shirt:
@@ -68,6 +73,7 @@ public class ShopChooseController : MonoBehaviour
 
     public void UnlockSkin(ShopObjectController shopObject)
     {
+        soundController.Play("PositiveClick");
         shopObject.SetBuyState(true);
         shopObject.ShowLockImage(false);
     }
@@ -84,6 +90,8 @@ public class ShopChooseController : MonoBehaviour
         obj.SetChooseState(true);
         obj.ShowChooseImage(true);
         choosedShirtName = obj.colorName;
+        Progress.Instance.playerInfo.choosedShirtColor = choosedShirtName;
+        YandexSDK.Save();
     }
 
     void ChoosePants(ShopObjectController obj)
@@ -94,6 +102,8 @@ public class ShopChooseController : MonoBehaviour
         obj.SetChooseState(true);
         obj.ShowChooseImage(true);
         choosedPantsName = obj.colorName;
+        Progress.Instance.playerInfo.choosedPantsColor = choosedPantsName;
+        YandexSDK.Save();
     }
 
     void ChooseSpecialSkin(ShopObjectController obj)
@@ -105,6 +115,8 @@ public class ShopChooseController : MonoBehaviour
         obj.SetChooseState(true);
         obj.ShowChooseImage(true);
         choosedSpecialName = obj.colorName;
+        Progress.Instance.playerInfo.choosedSpecialColor = choosedSpecialName;
+        YandexSDK.Save();
     }
 
     void UnchooseAllPants()

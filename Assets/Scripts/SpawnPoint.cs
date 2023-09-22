@@ -12,12 +12,6 @@ public class SpawnPoint : MonoBehaviour
         spawnManager = FindObjectOfType<SpawnManager>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (isSpawnAlreadySet)

@@ -20,9 +20,11 @@ public class CannonShotController : MonoBehaviour
     float distance;
     Vector3 shootVector;
     float shootPower = 250f;
-    // Start is called before the first frame update
+    
+    SoundController soundController;
     void Start()
     {
+        soundController = FindObjectOfType<SoundController>();
         ResetTimer();
         coinObject.SetActive(false);
         shootVector = -(shootPoint.position - targetPoint.position).normalized;
@@ -37,7 +39,7 @@ public class CannonShotController : MonoBehaviour
     {
         if (!isShotProccess && characterIsReady && CheckClick())
         {
-            //Звук
+            
             hintText.gameObject.SetActive(false);
             isShotProccess = true;
             Invoke("MakeShot", shootDelay);
@@ -47,6 +49,7 @@ public class CannonShotController : MonoBehaviour
 
     void MakeShot()
     {
+        soundController.Play("CannonShot");
         cannonballClone = Instantiate(cannonballObject, 
             shootPoint.position, 
             Quaternion.identity, 
@@ -57,7 +60,10 @@ public class CannonShotController : MonoBehaviour
             ForceMode.Impulse);
 
         if (!isAlreadyRewarded)
+        {
+            soundController.Play("Success");
             coinObject.SetActive(true);
+        }
         
         isShotProccess = false;
     }

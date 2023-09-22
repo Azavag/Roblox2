@@ -10,6 +10,7 @@ public class BuySkinButtonController : MonoBehaviour
     [SerializeField] GameObject coinImageObject;
     [SerializeField] TextMeshProUGUI buttonText;
     [SerializeField] ShopChooseController shopChooseController;
+    [SerializeField] SoundController soundController;
     float adsTextSize = 35;
     float coinTextSize = 65;
 
@@ -44,7 +45,7 @@ public class BuySkinButtonController : MonoBehaviour
         if (tempShopObj.price > moneyManager.GetMoneyCount())        //Если недостаточно денег
         {
             animator.SetBool("isError", true);
-            //Звук
+            soundController.Play("NegativeClick");
             return;
         }
         if (!tempShopObj.isAdsSell)
@@ -54,7 +55,7 @@ public class BuySkinButtonController : MonoBehaviour
             gameObject.SetActive(false);
             return;
         }
-        else if (tempShopObj.isAdsSell)
+        else if (tempShopObj.isAdsSell)     //Награда за рекламу
             Debug.Log("Rewarded Ad");
     }
     //Ивент в анимации

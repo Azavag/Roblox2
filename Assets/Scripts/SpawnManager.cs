@@ -11,15 +11,20 @@ public class SpawnManager : MonoBehaviour
 {
     [SerializeField] List<SpawnPoint> spawnPointsList;
     [SerializeField] int lastSpawnPoint;
-    bool isPlayerDied;
     [SerializeField] GameObject playerObject;
     [SerializeField] GameObject deathMenu;
     [SerializeField] GameObject cameraObject;
 
+    private void Start()
+    {
+        lastSpawnPoint = Progress.Instance.playerInfo.spawnPointNumber;
+    }
 
     public void UpdatePointNumber(SpawnPoint point)
     {
         lastSpawnPoint = spawnPointsList.IndexOf(point);
+        Progress.Instance.playerInfo.spawnPointNumber = lastSpawnPoint;
+        YandexSDK.Save();
     }
     public void UpdatePointNumber(int pointNumber)
     {

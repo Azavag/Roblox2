@@ -11,9 +11,11 @@ public class FireWorksController : MonoBehaviour
     [SerializeField] TextMeshProUGUI hintText;
     float timer; float timeBetweenParticles = 1f;
     bool isAlreadyRewarded, characterIsReady;
+    SoundController soundController;
     void Start()
     {
         coinObject.SetActive(false);
+        soundController = FindObjectOfType<SoundController>();
     }
 
     // Update is called once per frame
@@ -29,15 +31,17 @@ public class FireWorksController : MonoBehaviour
 
     IEnumerator FireworksAnimation()
     {
-        foreach(var fire in fireworks) 
+        soundController.Play("Fireworks");
+        foreach (var fire in fireworks) 
         {
             fire.Play();
             yield return new WaitForSeconds(timeBetweenParticles);
         }
         if (!isAlreadyRewarded)
         {
+            soundController.Play("Success");
             coinObject.SetActive(true);
-            isAlreadyRewarded = true;       //Флаг переключается до подбора награды!!
+            isAlreadyRewarded = true;
         }
         yield return null;
     }

@@ -8,18 +8,18 @@ public class ErasedPlatfroms : MonoBehaviour
     Transform platformObject;
     float timer;
     bool isPlayerStand, isPlatformFall;
-    Rigidbody rigidbody;
+    Rigidbody rb;
     BoxCollider triggerCollider;
     Vector3 startPosition;
 
     private void Awake()
     {
-        rigidbody = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
         triggerCollider = GetComponent<BoxCollider>();
     }
     void Start()
     {      
-        rigidbody.isKinematic = true;
+        rb.isKinematic = true;
         platformObject = transform.GetChild(0);
         startPosition = transform.position;
         timer = timeToErase;
@@ -60,12 +60,12 @@ public class ErasedPlatfroms : MonoBehaviour
     void ErasePlatform()
     {
         triggerCollider.enabled = false;
-        rigidbody.isKinematic = false;    
+        rb.isKinematic = false;    
     }
 
     void ReturnPlatform()
     {       
-        rigidbody.isKinematic = true;
+        rb.isKinematic = true;
         transform.position = startPosition;
         triggerCollider.enabled = true;
     }

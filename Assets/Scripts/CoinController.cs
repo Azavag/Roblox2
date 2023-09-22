@@ -7,13 +7,14 @@ public class CoinController : MonoBehaviour
     MoneyManager moneyManager;
     [SerializeField] int moneyForCollect;
     [SerializeField] GameObject coinObject;
-    public bool isCoinCollect;         //для сохранения
+    public bool isCoinCollect;               //для сохранения
     ParticleSystem particles;
-   
+    SoundController soundController;
     private void Awake()
     {
         moneyManager = FindObjectOfType<MoneyManager>();
         particles = GetComponentInChildren<ParticleSystem>();
+        soundController = FindObjectOfType<SoundController>();
     }
     void Start()
     {
@@ -32,6 +33,7 @@ public class CoinController : MonoBehaviour
     void Collecting()
     {
         particles.Play();
+        soundController.Play("CoinCollect");
 ;       moneyManager.UpdateMoneyCount(moneyForCollect);
         isCoinCollect = true;
         coinObject.SetActive(false);

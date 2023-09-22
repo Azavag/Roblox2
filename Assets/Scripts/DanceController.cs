@@ -6,19 +6,21 @@ using UnityEngine;
 public class DanceController : MonoBehaviour
 {
     bool isAnimationInProccess;
-    bool isAlreadyDance;
+    bool isAlreadyRewarded;
     bool characterIsReady;
     [SerializeField] Camera targetCamera;
     [SerializeField] GameObject playerCharacter;
     [SerializeField] GameObject coinObject;
-   Animator playerAnimator;
+    Animator playerAnimator;
     float timer;
-    float animationTime = 12.37f;
+    float animationTime = 8f;
     
+    SoundController soundController;
 
     void Start()
     {
         playerAnimator = playerCharacter.GetComponentInChildren<Animator>();
+        soundController = FindObjectOfType<SoundController>();
         ResetTimer();
         coinObject.SetActive(false);
     }
@@ -30,7 +32,7 @@ public class DanceController : MonoBehaviour
    
     void Update()
     {
-        if (characterIsReady && CheckClick())
+        if (characterIsReady && CheckClick() && !isAnimationInProccess)
         {
             RotateCharacterToCamera();
             playerAnimator.SetBool("isDance", true);
@@ -46,10 +48,11 @@ public class DanceController : MonoBehaviour
             {
                 playerCharacter.GetComponent<SimpleCharacterController>().enabled = true;
                 playerAnimator.SetBool("isDance", false);
-                if (!isAlreadyDance)
+                if (!isAlreadyRewarded)
                 {
+                    soundController.Play("Success");
                     coinObject.SetActive(true);
-                    isAlreadyDance = true;
+                    isAlreadyRewarded = true;
                 }
                 isAnimationInProccess = false;
                 ResetTimer();

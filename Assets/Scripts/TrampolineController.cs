@@ -8,26 +8,23 @@ public class TrampolineController : MonoBehaviour
     int jumpCounter, jumpTarget = 3;
     bool isAlreadyJumped;
     [SerializeField] GameObject coinObject;
-    
+    SoundController soundController;
     void Start()
     {
         coinObject.SetActive(false);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        soundController = FindObjectOfType<SoundController>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
+            soundController.Play("Spring");
             other.gameObject.GetComponent<Rigidbody>().AddForce(bouncePower * Vector3.up, ForceMode.Impulse);
             jumpCounter++;
             if (jumpCounter == jumpTarget && !isAlreadyJumped)
             {
+                soundController.Play("Success");
                 coinObject.SetActive(true);
                 isAlreadyJumped = true;
             }
