@@ -18,7 +18,7 @@ public class NavigationController : MonoBehaviour
     [SerializeField] GameObject settingsCanvas;
     GameObject prevPageObject;
     [SerializeField] SpawnManager spawnManager;
-
+    [SerializeField] AdvManager advManager;
     bool isPause;
     bool isShop;
     bool isSettings;
@@ -85,10 +85,13 @@ public class NavigationController : MonoBehaviour
 
     public void ShowShopMenu() 
     {      
-        isShop = !isShop;
+        isShop = !isShop;     
         shopCamera.gameObject.SetActive(isShop);
         shopCanvas.SetActive(isShop);
         prevPageObject.SetActive(!isShop);
+        //Реклама
+        if (isShop)                 
+            advManager.ShowAdv();
     }
 
     public void ShowSettingMenu()

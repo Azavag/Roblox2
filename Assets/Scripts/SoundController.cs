@@ -12,7 +12,7 @@ public class SoundController : MonoBehaviour
     [SerializeField] Slider musicSlider;
     [SerializeField] public AudioMixer mixer;
     [SerializeField] AudioMixerGroup musicMixerGroup, effectsMixerGroup;
-    float effectsLevel, musicLevel;
+    float effectsVolume, musicVolume;
     [Header("All sounds")]  
     [SerializeField] Sound[] sounds;
     AudioSource m_AudioSource;
@@ -36,18 +36,14 @@ public class SoundController : MonoBehaviour
                     break;
             }
         }
-
         Play("Background");
     }
 
     void Start()
     {
         m_AudioSource = GetComponent<AudioSource>();
-        //isSoundMute = Progress.Instance.playerInfo.isMute;
-        //if (isSoundMute)
-        //    AudioListener.volume = 0;
-        //else AudioListener.volume = 1;
-        //SwapImage();
+        effectsSlider.value = Progress.Instance.playerInfo.effectsVolume;
+        musicSlider.value = Progress.Instance.playerInfo.musicVolume;
     }
 
     public void Play(string name)
@@ -70,13 +66,19 @@ public class SoundController : MonoBehaviour
     public void SetEffectsLevel()
     {      
         mixer.SetFloat("EffectsVolume", Mathf.Log10(effectsSlider.value) * 20);
-        effectsLevel = effectsSlider.value;
+        effectsVolume = effectsSlider.value;
+        Progress.Instance.playerInfo.effectsVolume = effectsSlider.value;
     }
     public void SetMusicLevel()
     {
         mixer.SetFloat("MusicVolume", Mathf.Log10(musicSlider.value) * 20);
-        musicLevel = musicSlider.value;
-
+        musicVolume = musicSlider.value;
+        Progress.Instance.playerInfo.musicVolume = musicSlider.value;
+    }
+    //По кнопке Закрыть
+    public void SaveVolumeSetting()
+    {
+        YandexSDK.Save();
     }
 
     private void OnApplicationFocus(bool focus)

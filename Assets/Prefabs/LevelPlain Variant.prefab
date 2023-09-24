@@ -269,7 +269,7 @@ PrefabInstance:
     - target: {fileID: 4232589109732468567, guid: 91e76213afd5e3e4080603ea341938ea,
         type: 3}
       propertyPath: m_Name
-      value: CoinObject
+      value: CoinObject_2lvl
       objectReference: {fileID: 0}
     - target: {fileID: 6902838381496615782, guid: 91e76213afd5e3e4080603ea341938ea,
         type: 3}

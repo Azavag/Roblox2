@@ -10,16 +10,13 @@ public class CoinController : MonoBehaviour
     public bool isCoinCollect;               //для сохранения
     ParticleSystem particles;
     SoundController soundController;
+    CoinsCollectionController coinsCollectionController;
     private void Awake()
     {
         moneyManager = FindObjectOfType<MoneyManager>();
         particles = GetComponentInChildren<ParticleSystem>();
         soundController = FindObjectOfType<SoundController>();
-    }
-    void Start()
-    {
-        if(isCoinCollect)
-            coinObject.SetActive(false);
+        coinsCollectionController = FindObjectOfType<CoinsCollectionController>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -37,6 +34,7 @@ public class CoinController : MonoBehaviour
 ;       moneyManager.UpdateMoneyCount(moneyForCollect);
         isCoinCollect = true;
         coinObject.SetActive(false);
+        coinsCollectionController.GetCollectedCoinNumber(this);
     }
 
     public int GetMoneyForCollect()
@@ -48,5 +46,10 @@ public class CoinController : MonoBehaviour
     {
         isCoinCollect = false;
         coinObject.SetActive(true);
+    }
+
+    public void DisableCoin()
+    {
+        coinObject.SetActive(false);
     }
 }

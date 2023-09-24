@@ -9,13 +9,13 @@ public class PlayerInfo
 {
     public int spawnPointNumber = 0;        //++
     public int moneyCount = 0;              //++
-    public float musicVolume = 1;
-    public float effectsVolume = 1;
+    public float musicVolume = 1;           //++
+    public float effectsVolume = 1;         //++
     public int runsCount = 1;               //++
-    public bool[] areCoinsCollect = new bool[68];
-    public bool[] colorHatsBuyState = new bool[9];
-    public bool[] colorBodyBuyState = new bool[9];
-    public bool[] specialBuyState = new bool[7];
+    public bool[] areCoinsCollect = new bool[68];       //++
+    public bool[] colorsPantsBuyState = new bool[9];    //++
+    public bool[] colorsShirtBuyState = new bool[9];    //++
+    public bool[] specialsBuyState = new bool[7];       //++
     public string choosedPantsColor;        //++
     public string choosedShirtColor;        //++
     public string choosedSpecialColor;      //++

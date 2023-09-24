@@ -13,7 +13,9 @@ public class MoneyManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI moneyTextField;
     [SerializeField] TextMeshProUGUI startGameText;
     [SerializeField] GameObject FinalMenu;
-    string continueGameText = "Продолжить", newGameText = "Новая игра";
+    string continueGameText, newGameText;
+    string ruContinueText = "Продолжить", ruNewGameText = "Новая игра";
+    string enContinueText = "Continue", enNewGameText = "New game";
     float timeToShowPanel = 1.5f;
 
     [SerializeField] SpawnManager spawnManager;
@@ -21,8 +23,18 @@ public class MoneyManager : MonoBehaviour
     [SerializeField] CoinsCollectionController coinsCollectionController;
     SoundController soundController;
     private void Awake()
-    { 
+    {
         soundController = FindObjectOfType<SoundController>();
+        if (Language.isRusLang)
+        {
+            continueGameText = ruContinueText;
+            newGameText = ruNewGameText;
+        } 
+        else
+        {
+            continueGameText = enContinueText;
+            newGameText = enNewGameText;
+        }
     }
     void Start()
     {
@@ -31,7 +43,9 @@ public class MoneyManager : MonoBehaviour
         maxMoneyCount = runsCount * moneyOnRun;
         FinalMenu.SetActive(false);
         ChangeStartGameText();
-        UpdateMoneyText();            
+        UpdateMoneyText();      
+        
+
     }
 
     public void UpdateMoneyCount(int difference)

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,35 +16,57 @@ public class ShopChooseController : MonoBehaviour
     [SerializeField] GameObject buyButtonObject;
     [SerializeField] BuySkinButtonController buySkinButtonController;
     [SerializeField] SoundController soundController;
+    [SerializeField] ShopObjectController prevChoosedPants, prevChoosedShirt, prevChoosedSpecial;
+    ShopObjectController rewardingSkin;
+    int progressCounnter;
+    bool isReward;
     void Start()
     {
         buyButtonObject.SetActive(false);
         choosedShirtName = Progress.Instance.playerInfo.choosedShirtColor;
         choosedPantsName = Progress.Instance.playerInfo.choosedPantsColor;
         choosedSpecialName = Progress.Instance.playerInfo.choosedSpecialColor;
+
+        progressCounnter = 0;
         foreach (ShopObjectController obj in shirtColorsArray)
         {
+            obj.isBuy = Progress.Instance.playerInfo.colorsShirtBuyState[progressCounnter];
             if (!obj.isBuy)
                 obj.ShowLockImage(true);
             if (choosedShirtName != "" && obj.colorName == choosedShirtName)
-                ChooseShirt(obj);
+            {
+                prevChoosedShirt = obj;
+                ChooseShirt(obj);              
+            }
+            progressCounnter++;
         }
+        progressCounnter = 0;
         foreach (ShopObjectController obj in pantsColorsArray)
         {
+            obj.isBuy = Progress.Instance.playerInfo.colorsPantsBuyState[progressCounnter];
             if (!obj.isBuy)
                 obj.ShowLockImage(true);
             if (choosedPantsName != "" && obj.colorName == choosedPantsName)
-                ChoosePants(obj);
+            {
+                prevChoosedPants = obj;
+                ChoosePants(obj);               
+            }
+            progressCounnter++;
         }
+        progressCounnter = 0;
         foreach (ShopObjectController obj in specialSkinsNamesArray)
         {
+            obj.isBuy = Progress.Instance.playerInfo.specialsBuyState[progressCounnter];
             if (!obj.isBuy)
                 obj.ShowLockImage(true);
             if (choosedSpecialName != "" && obj.colorName == choosedSpecialName)
-                ChoosePants(obj);
+            {
+                prevChoosedSpecial = obj;
+                ChooseSpecialSkin(obj);             
+            }
+
+            progressCounnter++;
         }
-
-
     }
     //По кнопке
     public void CheckClick(ShopObjectController shopObject)
@@ -75,12 +98,49 @@ public class ShopChooseController : MonoBehaviour
     {
         soundController.Play("PositiveClick");
         shopObject.SetBuyState(true);
+        int tempIndex;
+        switch (shopObject.skinType)
+        {          
+            case typeOfSkin.shirt:
+                tempIndex = Array.IndexOf(shirtColorsArray, shopObject);
+                Progress.Instance.playerInfo.colorsShirtBuyState[tempIndex] = shopObject.isBuy;
+                YandexSDK.Save();
+                break;
+            case typeOfSkin.pants:
+                tempIndex = Array.IndexOf(pantsColorsArray, shopObject);
+                Progress.Instance.playerInfo.colorsPantsBuyState[tempIndex] = shopObject.isBuy;
+                YandexSDK.Save();
+                break;
+            case typeOfSkin.special:
+                tempIndex = Array.IndexOf(specialSkinsNamesArray, shopObject);
+                Progress.Instance.playerInfo.specialsBuyState[tempIndex] = shopObject.isBuy;
+                YandexSDK.Save();
+                break;
+        }
+
         shopObject.ShowLockImage(false);
     }
 
     void ShowBuyButton(bool state)
     {
         buyButtonObject.SetActive(state);       
+    }
+
+    public void SetRewardSkin(ShopObjectController shopObj)
+    {
+        isReward = false;
+        rewardingSkin = shopObj;
+    }
+    //В jslib
+    public void UnlockRewardSkin()
+    {
+        if (isReward)
+            UnlockSkin(rewardingSkin);
+    }
+
+    public void SetRewardingState()
+    {
+        isReward = true;
     }
     void ChooseShirt(ShopObjectController obj)
     {
@@ -90,8 +150,8 @@ public class ShopChooseController : MonoBehaviour
         obj.SetChooseState(true);
         obj.ShowChooseImage(true);
         choosedShirtName = obj.colorName;
-        Progress.Instance.playerInfo.choosedShirtColor = choosedShirtName;
-        YandexSDK.Save();
+        prevChoosedShirt = obj;
+        SaveNames();
     }
 
     void ChoosePants(ShopObjectController obj)
@@ -102,47 +162,55 @@ public class ShopChooseController : MonoBehaviour
         obj.SetChooseState(true);
         obj.ShowChooseImage(true);
         choosedPantsName = obj.colorName;
-        Progress.Instance.playerInfo.choosedPantsColor = choosedPantsName;
-        YandexSDK.Save();
+        prevChoosedPants = obj;
+        SaveNames();
     }
 
     void ChooseSpecialSkin(ShopObjectController obj)
     {
-        UnchooseAllShirts();
-        UnchooseAllPants();
         UnchooseAllSpecials();
+        UnchooseAllShirts();
+        UnchooseAllPants();       
         bodySkinsController.ChangeSpecialSkin(obj.colorName);
         obj.SetChooseState(true);
         obj.ShowChooseImage(true);
         choosedSpecialName = obj.colorName;
+        prevChoosedSpecial = obj;
+        SaveNames();
+    }
+
+    void SaveNames()
+    {
+        Progress.Instance.playerInfo.choosedShirtColor = choosedShirtName;
+        Progress.Instance.playerInfo.choosedPantsColor = choosedPantsName;
         Progress.Instance.playerInfo.choosedSpecialColor = choosedSpecialName;
         YandexSDK.Save();
     }
 
     void UnchooseAllPants()
     {
-        foreach (var item in pantsColorsArray)
+        if (prevChoosedPants != null)
         {
-            item.ShowChooseImage(false);
-            item.SetChooseState(false);
+            prevChoosedPants.ShowChooseImage(false);
+            prevChoosedPants.isChoose = false;
         }
         choosedPantsName = "";
     }
     void UnchooseAllShirts()
     {
-        foreach(var item in shirtColorsArray)
+        if (prevChoosedShirt != null)
         {
-            item.ShowChooseImage(false);
-            item.SetChooseState(false);
+            prevChoosedShirt.ShowChooseImage(false);
+            prevChoosedShirt.isChoose = false;
         }
         choosedShirtName = "";
     }
     void UnchooseAllSpecials()
     {
-        foreach (var item in specialSkinsNamesArray)
+        if (prevChoosedSpecial != null)
         {
-            item.ShowChooseImage(false);
-            item.SetChooseState(false);
+            prevChoosedSpecial.ShowChooseImage(false);
+            prevChoosedSpecial.isChoose = false;
         }
         choosedSpecialName = "";
     }

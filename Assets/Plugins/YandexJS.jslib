@@ -86,18 +86,16 @@ mergeInto(LibraryManager.library, {
     ysdk.adv.showRewardedVideo({
       callbacks: {
         onOpen: () => {
-          myGameInstance.SendMessage("SoundManager", "MuteGame");
-          
+          myGameInstance.SendMessage("SoundController", "MuteGame");         
           console.log('Video ad open.');
         },
         onRewarded: () => {
-          myGameInstance.SendMessage("GameManager", "SetRewardingState");                
+          myGameInstance.SendMessage("ShopChooseController", "SetRewardingState");                
         },
         onClose: () => {
           //myGameInstance.SendMessage("Progress","CloseRewardedUI");
-          myGameInstance.SendMessage("GameManager","DoubleWaveMoneyCount");  
-          myGameInstance.SendMessage("SoundManager", "UnmuteGame");
-          myGameInstance.SendMessage("GameManager","HideRewardedButton");
+          myGameInstance.SendMessage("ShopChooseController","UnlockRewardSkin");  
+          myGameInstance.SendMessage("SoundController", "UnmuteGame");
           console.log('Video ad closed');
         }, 
         onError: (e) => {

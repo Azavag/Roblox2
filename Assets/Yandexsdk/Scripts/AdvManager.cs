@@ -1,9 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class AdvManager : MonoBehaviour
 {
@@ -28,6 +23,11 @@ public class AdvManager : MonoBehaviour
             StartTimer();
 #endif
         }
+    }
+
+    public void ShowRewardedAdv()
+    {
+        YandexSDK.ShowRewardedADV();
     }
     //Âûחûגאועסÿ ג ShowIntersitialAdvExtern.OnClose()
     public void StartTimer()

@@ -6,16 +6,31 @@ using UnityEngine;
 public class BuySkinButtonController : MonoBehaviour
 {
     [SerializeField] MoneyManager moneyManager;
-    string adsText = "Посмотреть рекламу";
+    string advText = "Посмотреть рекламу";
+    string enAdvText = "View advertisement";
+    string ruAdvText = "Посмотреть рекламу";
     [SerializeField] GameObject coinImageObject;
     [SerializeField] TextMeshProUGUI buttonText;
     [SerializeField] ShopChooseController shopChooseController;
     [SerializeField] SoundController soundController;
+    [SerializeField] AdvManager advManager;
     float adsTextSize = 35;
     float coinTextSize = 65;
 
     ShopObjectController tempShopObj;
     Animator animator;
+
+    private void Awake()
+    {
+        if(Language.isRusLang) 
+        {
+            advText = ruAdvText;
+        }
+        else
+        {
+            advText = enAdvText;
+        }
+    }
     void Start()
     {
         buttonText = GetComponentInChildren<TextMeshProUGUI>();
@@ -36,7 +51,7 @@ public class BuySkinButtonController : MonoBehaviour
         {
             coinImageObject.SetActive(false);
             buttonText.fontSize = adsTextSize;
-            buttonText.text = adsText;
+            buttonText.text = advText;
         }
     }
     //По кнопке
@@ -56,7 +71,10 @@ public class BuySkinButtonController : MonoBehaviour
             return;
         }
         else if (tempShopObj.isAdsSell)     //Награда за рекламу
-            Debug.Log("Rewarded Ad");
+        {
+            shopChooseController.SetRewardSkin(tempShopObj);
+            advManager.ShowRewardedAdv();
+        }
     }
     //Ивент в анимации
     public void OnEndAnimation()

@@ -10,11 +10,11 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     [SerializeField] List<SpawnPoint> spawnPointsList;
-    [SerializeField] int lastSpawnPoint;
+    int lastSpawnPoint;
     [SerializeField] GameObject playerObject;
     [SerializeField] GameObject deathMenu;
     [SerializeField] GameObject cameraObject;
-
+    [SerializeField] AdvManager advManager;
     private void Start()
     {
         lastSpawnPoint = Progress.Instance.playerInfo.spawnPointNumber;
@@ -47,6 +47,7 @@ public class SpawnManager : MonoBehaviour
 
     public void ShowDeathMenu()
     {
+        advManager.ShowAdv();
         playerObject.SetActive(false);
         cameraObject.GetComponent<OrbitingCamera>().enabled = false;
         deathMenu.SetActive(true);

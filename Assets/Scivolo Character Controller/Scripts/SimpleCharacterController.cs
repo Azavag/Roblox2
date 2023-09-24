@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 namespace MenteBacata.ScivoloCharacterControllerDemo
 {
     
@@ -23,8 +24,7 @@ namespace MenteBacata.ScivoloCharacterControllerDemo
         public GroundDetector groundDetector;
 
         public MeshRenderer groundedIndicator;
-        
-       // public Joystick joystick;
+
 
         private const float minVerticalSpeed = -12f;
 
@@ -80,7 +80,7 @@ namespace MenteBacata.ScivoloCharacterControllerDemo
 
             if (isGrounded && Input.GetButtonDown("Jump"))
             {
-                Debug.Log("Прыжок");
+
                 animator.SetBool("isJump", true);
                 verticalSpeed = jumpSpeed;
                 nextUngroundedTime = -1f;
@@ -126,7 +126,8 @@ namespace MenteBacata.ScivoloCharacterControllerDemo
         {
             float x = Input.GetAxis("Horizontal");
             float y = Input.GetAxis("Vertical");
-
+            //ДЖойсти
+            
             Vector3 forward = Vector3.ProjectOnPlane(cameraTransform.forward, transform.up).normalized;
             Vector3 right = Vector3.Cross(transform.up, forward);
 

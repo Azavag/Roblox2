@@ -53,7 +53,7 @@ public class BodySkinsController : MonoBehaviour
         standSpecialHatsDict.Add("cape", standSpecialHatsArray[3]);
         standSpecialHatsDict.Add("pig", standSpecialHatsArray[4]);
         standSpecialHatsDict.Add("spider", standSpecialHatsArray[5]);
-        standSpecialHatsDict.Add("indian", standSpecialBodiesArray[6]);
+        standSpecialHatsDict.Add("indian", standSpecialHatsArray[6]);
         //Заполнение словарей для персонажа
         characterSpecialBodiesDict.Add("doge", characterSpecialBodiesArray[0]);
         characterSpecialBodiesDict.Add("bomb", characterSpecialBodiesArray[1]);
@@ -61,7 +61,7 @@ public class BodySkinsController : MonoBehaviour
         characterSpecialBodiesDict.Add("cape", characterSpecialBodiesArray[3]);
         characterSpecialBodiesDict.Add("pig", characterSpecialBodiesArray[4]);
         characterSpecialBodiesDict.Add("spider", characterSpecialBodiesArray[5]);
-        characterSpecialBodiesDict.Add("indian", standSpecialBodiesArray[6]);
+        characterSpecialBodiesDict.Add("indian", characterSpecialBodiesArray[6]);
 
         characterSpecialHatsDict.Add("doge", characterSpecialHatsArray[0]);
         characterSpecialHatsDict.Add("bomb", characterSpecialHatsArray[1]);
@@ -69,7 +69,7 @@ public class BodySkinsController : MonoBehaviour
         characterSpecialHatsDict.Add("cape", characterSpecialHatsArray[3]);
         characterSpecialHatsDict.Add("pig", characterSpecialHatsArray[4]);
         characterSpecialHatsDict.Add("spider", characterSpecialHatsArray[5]);
-        characterSpecialHatsDict.Add("indian", standSpecialBodiesArray[6]);
+        characterSpecialHatsDict.Add("indian", characterSpecialHatsArray[6]);
     }
 
 
