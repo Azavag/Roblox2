@@ -82,12 +82,12 @@ public class SoundController : MonoBehaviour
     }
 
     private void OnApplicationFocus(bool focus)
-    {
-        Silence(!focus);
+    {       
+        Silence(!focus);       
     }
     private void OnApplicationPause(bool pause)
     {
-        Silence(!pause);
+        Silence(pause);
     }
     void Silence(bool silence)
     {

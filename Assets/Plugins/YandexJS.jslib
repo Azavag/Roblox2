@@ -157,4 +157,10 @@ mergeInto(LibraryManager.library, {
       stringToUTF8(lang, buffer, bufferSize);
       return buffer;
     },
+
+    GetDevice : function()
+    {
+      var deviceData = ysdk.deviceInfo.type;   
+      myGameInstance.SendMessage('YandexSDK', 'SetDeviceInfo', deviceData);
+    },
   });

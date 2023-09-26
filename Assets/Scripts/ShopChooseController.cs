@@ -1,8 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public class ShopChooseController : MonoBehaviour
 {
@@ -20,6 +17,7 @@ public class ShopChooseController : MonoBehaviour
     ShopObjectController rewardingSkin;
     int progressCounnter;
     bool isReward;
+    int firstCounter = 0;
     void Start()
     {
         buyButtonObject.SetActive(false);
@@ -27,12 +25,19 @@ public class ShopChooseController : MonoBehaviour
         choosedPantsName = Progress.Instance.playerInfo.choosedPantsColor;
         choosedSpecialName = Progress.Instance.playerInfo.choosedSpecialColor;
 
-        progressCounnter = 0;
+
+        ChooseShirt(shirtColorsArray[0]);
+        ChoosePants(pantsColorsArray[0]); 
+
+        progressCounnter = 0;     
         foreach (ShopObjectController obj in shirtColorsArray)
         {
             obj.isBuy = Progress.Instance.playerInfo.colorsShirtBuyState[progressCounnter];
             if (!obj.isBuy)
+            {
                 obj.ShowLockImage(true);
+            }
+            
             if (choosedShirtName != "" && obj.colorName == choosedShirtName)
             {
                 prevChoosedShirt = obj;
@@ -40,6 +45,7 @@ public class ShopChooseController : MonoBehaviour
             }
             progressCounnter++;
         }
+        
         progressCounnter = 0;
         foreach (ShopObjectController obj in pantsColorsArray)
         {
@@ -53,6 +59,7 @@ public class ShopChooseController : MonoBehaviour
             }
             progressCounnter++;
         }
+        
         progressCounnter = 0;
         foreach (ShopObjectController obj in specialSkinsNamesArray)
         {

@@ -19,6 +19,7 @@ public class NavigationController : MonoBehaviour
     GameObject prevPageObject;
     [SerializeField] SpawnManager spawnManager;
     [SerializeField] AdvManager advManager;
+    [SerializeField] InputGame inputGame;
     bool isPause;
     bool isShop;
     bool isSettings;
@@ -61,6 +62,7 @@ public class NavigationController : MonoBehaviour
         isGame = !isGame;
         if (isGame)
             spawnManager.RespawnPlayer();
+        inputGame.ShowCursorState(!isGame);
         EnableCharacterControl(isGame);
         isPause = false;
         pauseMenu.SetActive(isPause);
@@ -71,10 +73,16 @@ public class NavigationController : MonoBehaviour
     }
     public void ShowPauseMenu()
     {
-        isPause = !isPause;
+        isPause = !isPause;       
         pauseMenu.SetActive(isPause);
         pauseButton.SetActive(!isPause);
-        EnableCharacterControl(!isPause);
+        
+        if (!deathMenu.activeSelf)
+        {
+            EnableCharacterControl(!isPause);
+            inputGame.ShowCursorState(isPause);
+        }
+    
 
     }
     public void EnableCharacterControl(bool state)

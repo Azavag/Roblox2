@@ -36,14 +36,17 @@ public class Progress : MonoBehaviour
             transform.parent = null;
             DontDestroyOnLoad(gameObject);
             Instance = this;
-
             yandexSDK.Load();
+            
+            playerInfo.colorsPantsBuyState[0] = true;
+            playerInfo.colorsShirtBuyState[0] = true;
         }
         else
         {
             Destroy(gameObject);
         }
     }
+
 }
 
 

@@ -12,7 +12,7 @@ public class MoneyManager : MonoBehaviour
     int runsCount = 1;
     [SerializeField] TextMeshProUGUI moneyTextField;
     [SerializeField] TextMeshProUGUI startGameText;
-    [SerializeField] GameObject FinalMenu;
+    [SerializeField] GameObject finalMenu;
     string continueGameText, newGameText;
     string ruContinueText = "Продолжить", ruNewGameText = "Новая игра";
     string enContinueText = "Continue", enNewGameText = "New game";
@@ -21,6 +21,7 @@ public class MoneyManager : MonoBehaviour
     [SerializeField] SpawnManager spawnManager;
     [SerializeField] NavigationController navigationController;
     [SerializeField] CoinsCollectionController coinsCollectionController;
+    [SerializeField] InputGame inputGame;
     SoundController soundController;
     private void Awake()
     {
@@ -41,7 +42,7 @@ public class MoneyManager : MonoBehaviour
         runsCount = Progress.Instance.playerInfo.runsCount;
         moneyCount = Progress.Instance.playerInfo.moneyCount;
         maxMoneyCount = runsCount * moneyOnRun;
-        FinalMenu.SetActive(false);
+        finalMenu.SetActive(false);
         ChangeStartGameText();
         UpdateMoneyText();      
         
@@ -54,7 +55,7 @@ public class MoneyManager : MonoBehaviour
         UpdateMoneyText();
         if(moneyCount >= maxMoneyCount) 
         {
-            StartCoroutine(ShowFInalMenu());
+            StartCoroutine(ShowFinalMenu());
         }
         ChangeStartGameText();
 
@@ -80,12 +81,13 @@ public class MoneyManager : MonoBehaviour
         else startGameText.text = newGameText;
     }
 
-    IEnumerator ShowFInalMenu()
+    IEnumerator ShowFinalMenu()
     {
         soundController.Play("WinGame");
         yield return new WaitForSeconds(timeToShowPanel);
         navigationController.EnableCharacterControl(false);
-        FinalMenu.SetActive(true);
+        inputGame.ShowCursorState(true);
+        finalMenu.SetActive(true);
     }
     //По кнопке
     public void AnotherRun()
@@ -94,7 +96,8 @@ public class MoneyManager : MonoBehaviour
         maxMoneyCount = (runsCount * moneyOnRun);
         spawnManager.UpdatePointNumber(0);
         spawnManager.RespawnPlayer();
-        FinalMenu.SetActive(false);
+        finalMenu.SetActive(false);
+        inputGame.ShowCursorState(false);
         coinsCollectionController.ResetCoins();
         UpdateMoneyText();
         navigationController.EnableCharacterControl(true);

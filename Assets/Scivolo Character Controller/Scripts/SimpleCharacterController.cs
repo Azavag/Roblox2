@@ -1,14 +1,14 @@
 ﻿using MenteBacata.ScivoloCharacterController;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 namespace MenteBacata.ScivoloCharacterControllerDemo
 {
     
     public class SimpleCharacterController : MonoBehaviour
-    {
-
+    {      
         public float moveSpeed = 5f;
 
         public float jumpSpeed = 8f;
@@ -24,8 +24,8 @@ namespace MenteBacata.ScivoloCharacterControllerDemo
         public GroundDetector groundDetector;
 
         public MeshRenderer groundedIndicator;
-
-
+        
+        
         private const float minVerticalSpeed = -12f;
 
 
@@ -54,6 +54,9 @@ namespace MenteBacata.ScivoloCharacterControllerDemo
 
         Animator animator;
 
+        private Vector3 JoystickVector;
+        bool isJoystickJump;
+
         private void Start()
         {
             cameraTransform = Camera.main.transform;
@@ -65,6 +68,8 @@ namespace MenteBacata.ScivoloCharacterControllerDemo
         {
             float deltaTime = Time.deltaTime;
             Vector3 movementInput = GetMovementInput();
+            
+            movementInput = JoystickVector;
             animator.SetFloat("Movement", movementInput.sqrMagnitude);
             
 
@@ -78,9 +83,8 @@ namespace MenteBacata.ScivoloCharacterControllerDemo
 
             isOnMovingPlatform = false;
 
-            if (isGrounded && Input.GetButtonDown("Jump"))
+            if (isGrounded && (Input.GetButtonDown("Jump") || isJoystickJump))
             {
-
                 animator.SetBool("isJump", true);
                 verticalSpeed = jumpSpeed;
                 nextUngroundedTime = -1f;
@@ -90,6 +94,7 @@ namespace MenteBacata.ScivoloCharacterControllerDemo
             if (isGrounded)
             {
                 animator.SetBool("isJump", false);
+                
                 mover.mode = CharacterMover.Mode.Walk;
                 verticalSpeed = 0f;
 
@@ -106,7 +111,7 @@ namespace MenteBacata.ScivoloCharacterControllerDemo
                 
                 if (verticalSpeed < minVerticalSpeed)
                     verticalSpeed = minVerticalSpeed;
-
+                isJoystickJump = false;
                 velocity += verticalSpeed * transform.up;
             }
 
@@ -122,11 +127,19 @@ namespace MenteBacata.ScivoloCharacterControllerDemo
                 ApplyPlatformMovement(movingPlatform);
         }
 
+        public void SetJoyStickMovement(Vector3 vector3)
+        {
+            JoystickVector = vector3;
+        }
+        public void SetJoystickJump()
+        {
+            isJoystickJump = true;
+        }
         private Vector3 GetMovementInput()
         {
             float x = Input.GetAxis("Horizontal");
             float y = Input.GetAxis("Vertical");
-            //ДЖойсти
+            //ДЖойстик
             
             Vector3 forward = Vector3.ProjectOnPlane(cameraTransform.forward, transform.up).normalized;
             Vector3 right = Vector3.Cross(transform.up, forward);

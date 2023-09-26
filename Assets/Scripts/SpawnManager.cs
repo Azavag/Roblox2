@@ -15,9 +15,12 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] GameObject deathMenu;
     [SerializeField] GameObject cameraObject;
     [SerializeField] AdvManager advManager;
+    [SerializeField] InputGame inputGame;
+
     private void Start()
     {
         lastSpawnPoint = Progress.Instance.playerInfo.spawnPointNumber;
+            
     }
 
     public void UpdatePointNumber(SpawnPoint point)
@@ -30,24 +33,21 @@ public class SpawnManager : MonoBehaviour
     {
         lastSpawnPoint = pointNumber;
     }
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.R))
-            RespawnPlayer();
-    }
+ 
     //По кнопке перерождения
     public void RespawnPlayer()
-    {
-        cameraObject.GetComponent<OrbitingCamera>().enabled = true;
+    {       
         deathMenu.SetActive(false);
         playerObject.SetActive(true);
         playerObject.transform.position = spawnPointsList[lastSpawnPoint].spawnCoordinates.position;
+        inputGame.ShowCursorState(false);
+        cameraObject.GetComponent<OrbitingCamera>().enabled = true;                        
     }
 
     public void ShowDeathMenu()
     {
         advManager.ShowAdv();
+        inputGame.ShowCursorState(true);
         playerObject.SetActive(false);
         cameraObject.GetComponent<OrbitingCamera>().enabled = false;
         deathMenu.SetActive(true);

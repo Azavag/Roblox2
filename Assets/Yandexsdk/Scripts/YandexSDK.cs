@@ -36,6 +36,9 @@ public class YandexSDK : MonoBehaviour
     //Получение языка
     [DllImport("__Internal")]
     private static extern string GetLang();
+    //Получение типа устройства
+    [DllImport("__Internal")]
+    private static extern string GetDevice();
 
     //public event Action<string> LeaderBoardReady;
     //LeaderboardController leaderboard;
@@ -46,11 +49,13 @@ public class YandexSDK : MonoBehaviour
     {
         //LeaderBoardReady += SetJSONEntries;
         DontDestroyOnLoad(this);
+        
     }
 
     void Start()
     {
-       // leaderboard = FindObjectOfType<LeaderboardController>();
+        // leaderboard = FindObjectOfType<LeaderboardController>();
+        
     }
     //Вызывается месте сохранения Save -> SaveExtern в jslib
     static public void Save()
@@ -65,6 +70,7 @@ public class YandexSDK : MonoBehaviour
     {
 #if !UNITY_EDITOR
         LoadExtern();
+        
 #endif
     }
     //Вызывается в jslib
@@ -151,13 +157,20 @@ public class YandexSDK : MonoBehaviour
         Debug.Log(lang);
 #endif
     }
-    public void GetDeviceInfo(string deviceString)
+
+    public void GetDeviceInfo()
     {
 #if !UNITY_EDITOR
-        var json = JSON.Parse(deviceString);
-        deviceType = json["type"];
+    GetDevice();
+    
+#else
+    //deviceType = "desktop";
 #endif
-        deviceType = "desktop";
+    }
+    //Вызывается в jslib
+    public void SetDeviceInfo(string deviceString)
+    {
+        deviceType = deviceString;
     }
     public string GetDeviceType()
     {
