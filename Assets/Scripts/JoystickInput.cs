@@ -49,11 +49,16 @@ public class JoystickInput:MonoBehaviour
         simpleCharacterController.SetJoyStickMovement(movementVector);
     }
 
-    public void ShowMobileControl()
+    public void ShowMobileControl(bool state)
     {
-        isMobile = true;
-        mobileControl.SetActive(true);
+        isMobile = state;
+        mobileControl.SetActive(state);
     }
+    public bool isJoystickMobile()
+    {
+        return isMobile;
+    }
+    
 }
 
 

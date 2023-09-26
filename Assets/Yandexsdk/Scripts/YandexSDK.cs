@@ -162,9 +162,6 @@ public class YandexSDK : MonoBehaviour
     {
 #if !UNITY_EDITOR
     GetDevice();
-    
-#else
-    //deviceType = "desktop";
 #endif
     }
     //Âûחûגאועסÿ ג jslib
