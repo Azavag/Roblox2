@@ -1,8 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Drawing;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public enum typeOfSkin

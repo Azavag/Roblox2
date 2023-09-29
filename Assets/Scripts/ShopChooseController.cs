@@ -17,7 +17,11 @@ public class ShopChooseController : MonoBehaviour
     ShopObjectController rewardingSkin;
     int progressCounnter;
     bool isReward;
-    int firstCounter = 0;
+
+    private void Awake()
+    {
+        transform.SetParent(null);
+    }
     void Start()
     {
         buyButtonObject.SetActive(false);
@@ -25,9 +29,11 @@ public class ShopChooseController : MonoBehaviour
         choosedPantsName = Progress.Instance.playerInfo.choosedPantsColor;
         choosedSpecialName = Progress.Instance.playerInfo.choosedSpecialColor;
 
-
-        ChooseShirt(shirtColorsArray[0]);
-        ChoosePants(pantsColorsArray[0]); 
+        if (choosedShirtName == null && choosedPantsName == null && choosedSpecialName == null)
+        {
+            ChooseShirt(shirtColorsArray[0]);
+            ChoosePants(pantsColorsArray[0]);
+        }
 
         progressCounnter = 0;     
         foreach (ShopObjectController obj in shirtColorsArray)
@@ -78,7 +84,6 @@ public class ShopChooseController : MonoBehaviour
     //По кнопке
     public void CheckClick(ShopObjectController shopObject)
     {
-        soundController.Play("Select");
         ShowBuyButton(!shopObject.isBuy);
         buySkinButtonController.ShowInfo(shopObject);
 

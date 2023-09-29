@@ -48,6 +48,7 @@ public class YandexSDK : MonoBehaviour
     private void Awake()
     {
         //LeaderBoardReady += SetJSONEntries;
+        transform.SetParent(null);
         DontDestroyOnLoad(this);
         
     }
@@ -154,7 +155,6 @@ public class YandexSDK : MonoBehaviour
     {
 #if !UNITY_EDITOR
         string lang = GetLang();
-        Debug.Log(lang);
 #endif
     }
 

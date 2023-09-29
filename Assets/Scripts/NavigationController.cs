@@ -20,6 +20,8 @@ public class NavigationController : MonoBehaviour
     [SerializeField] SpawnManager spawnManager;
     [SerializeField] AdvManager advManager;
     [SerializeField] InputGame inputGame;
+    [SerializeField] GameObject levelsNavAlert;
+    [SerializeField] GameObject levelsNavPanel;
     bool isPause;
     bool isShop;
     bool isSettings;
@@ -40,7 +42,9 @@ public class NavigationController : MonoBehaviour
         EnableCharacterControl(isGame);
         deathMenu.SetActive(isGame);
         pauseMenu.SetActive(isPause);
-        pauseButton.SetActive(!isPause);      
+        pauseButton.SetActive(!isPause);
+        levelsNavAlert.SetActive(false);
+        levelsNavPanel.SetActive(false);
         shopCamera.gameObject.SetActive(isShop);                 
     }
 
@@ -56,7 +60,6 @@ public class NavigationController : MonoBehaviour
             }
         }
     }
-
     public void ShowGame()
     {
         isGame = !isGame;
@@ -81,16 +84,13 @@ public class NavigationController : MonoBehaviour
         {
             EnableCharacterControl(!isPause);
             inputGame.ShowCursorState(isPause);
-        }
-    
-
+        }    
     }
     public void EnableCharacterControl(bool state)
     {
         mainCamera.GetComponent<OrbitingCamera>().enabled = state;
         playerObject.GetComponent<SimpleCharacterController>().enabled = state;
     }
-
     public void ShowShopMenu() 
     {      
         isShop = !isShop;     
@@ -101,16 +101,21 @@ public class NavigationController : MonoBehaviour
         if (isShop)                 
             advManager.ShowAdv();
     }
-
     public void ShowSettingMenu()
     {
         isSettings = !isSettings;
         settingsCanvas.SetActive(isSettings);
        
     }
-
     public void SetPrevPage(GameObject objectToHide)
     {
         prevPageObject = objectToHide;
+    }
+
+    public void ShowLevelsNavHint(bool state)
+    {
+        levelsNavAlert.SetActive(state);
+        EnableCharacterControl(!state);
+        inputGame.ShowCursorState(state);
     }
 }

@@ -16,16 +16,27 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] GameObject cameraObject;
     [SerializeField] AdvManager advManager;
     [SerializeField] InputGame inputGame;
+    [SerializeField] HardLevelsNavigation levelsNavigation;
+    [SerializeField] NavigationController navigationController;
 
     private void Start()
     {
         lastSpawnPoint = Progress.Instance.playerInfo.spawnPointNumber;
-            
+        
+        for(int i = 0; i < spawnPointsList.Count; i++)
+        {
+            spawnPointsList[i].AlreadySet(Progress.Instance.playerInfo.areSpawnpointsSet[i]);
+        }
     }
 
     public void UpdatePointNumber(SpawnPoint point)
     {
         lastSpawnPoint = spawnPointsList.IndexOf(point);
+        if(lastSpawnPoint == spawnPointsList.Count - 1) 
+        {
+            levelsNavigation.SetActiveState(true);
+            navigationController.ShowLevelsNavHint(true);
+        }
         Progress.Instance.playerInfo.spawnPointNumber = lastSpawnPoint;
         YandexSDK.Save();
     }
@@ -53,7 +64,21 @@ public class SpawnManager : MonoBehaviour
         deathMenu.SetActive(true);
     }
 
+    public void SaveSpawnpointState(SpawnPoint point)
+    {
+        int tempNumber = spawnPointsList.IndexOf(point);
+        Progress.Instance.playerInfo.areSpawnpointsSet[tempNumber] = true;
+        YandexSDK.Save();
+    }
 
-
-    
+    public void ResetSpawnpoints()
+    {
+        foreach(SpawnPoint point in spawnPointsList) 
+        {
+            point.AlreadySet(false);           
+        }
+        for (int i = 0; i < Progress.Instance.playerInfo.areSpawnpointsSet.Length; i++)
+            Progress.Instance.playerInfo.areSpawnpointsSet[i] = false;
+        YandexSDK.Save();
+    }    
 }

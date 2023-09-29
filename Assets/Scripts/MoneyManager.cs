@@ -6,7 +6,8 @@ using UnityEngine;
 //мебепнърмн окнун
 public class MoneyManager : MonoBehaviour
 {
-    [SerializeField] int moneyCount;
+    int moneyCount;
+    [SerializeField] SpawnPoint startSpawnPoint;
     int maxMoneyCount;
     int moneyOnRun = 300;
     int runsCount = 1;
@@ -22,6 +23,7 @@ public class MoneyManager : MonoBehaviour
     [SerializeField] NavigationController navigationController;
     [SerializeField] CoinsCollectionController coinsCollectionController;
     [SerializeField] InputGame inputGame;
+    [SerializeField] HardLevelsNavigation levelsNavigation;
     SoundController soundController;
     private void Awake()
     {
@@ -94,14 +96,15 @@ public class MoneyManager : MonoBehaviour
     {
         runsCount++;       
         maxMoneyCount = (runsCount * moneyOnRun);
-        spawnManager.UpdatePointNumber(0);
+        spawnManager.ResetSpawnpoints();
+        spawnManager.UpdatePointNumber(startSpawnPoint);
         spawnManager.RespawnPlayer();
         finalMenu.SetActive(false);
         inputGame.ShowCursorState(false);
         coinsCollectionController.ResetCoins();
         UpdateMoneyText();
         navigationController.EnableCharacterControl(true);
-
+        levelsNavigation.SetActiveState(false);
         Progress.Instance.playerInfo.runsCount = runsCount;
         YandexSDK.Save();
     }

@@ -18,6 +18,7 @@ public class SoundController : MonoBehaviour
     AudioSource m_AudioSource;
     private void Awake()
     {
+        transform.SetParent(null);
         foreach (Sound s in sounds)
         {                 
             s.audioSource = gameObject.AddComponent<AudioSource>();

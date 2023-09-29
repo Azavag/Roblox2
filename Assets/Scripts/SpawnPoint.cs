@@ -16,8 +16,13 @@ public class SpawnPoint : MonoBehaviour
     {
         if (isSpawnAlreadySet)
             return;
-        isSpawnAlreadySet = true;
+        AlreadySet(true);
         spawnManager.UpdatePointNumber(this);
+        spawnManager.SaveSpawnpointState(this);
     }
 
+    public void AlreadySet(bool state)
+    {
+        isSpawnAlreadySet = state;
+    }
 }

@@ -17,7 +17,8 @@ public class Language : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            transform.SetParent(null);
+            DontDestroyOnLoad(this);
             YandexSDK.GetCurrentLanguage();
 #if !UNITY_EDITOR
             currentLanguage = GetLang();          

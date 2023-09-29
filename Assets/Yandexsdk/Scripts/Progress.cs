@@ -19,6 +19,8 @@ public class PlayerInfo
     public string choosedPantsColor;        //++
     public string choosedShirtColor;        //++
     public string choosedSpecialColor;      //++
+    public bool isNavButtonActive;          //++
+    public bool[] areSpawnpointsSet = new bool[51];
 }
 
 
