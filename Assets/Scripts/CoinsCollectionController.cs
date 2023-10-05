@@ -22,16 +22,20 @@ public class CoinsCollectionController : MonoBehaviour
 
     public void ResetCoins()
     {
+        int coinCounter = 0;
         foreach (var coinObject in coinControllers)
         {
             coinObject.isCoinCollect = false;
             coinObject.ResetCoin();
+            Progress.Instance.playerInfo.areCoinsCollect[coinCounter] = false;           
+            coinCounter++;
         }
+        YandexSDK.Save();
     }
-    public void GetCollectedCoinNumber(CoinController coin)
+    public void GetCollectedCoinNumber(CoinController coin, bool state)
     {
         int collectedCoinNumber = Array.IndexOf(coinControllers, coin);
-        Progress.Instance.playerInfo.areCoinsCollect[collectedCoinNumber] = true;
+        Progress.Instance.playerInfo.areCoinsCollect[collectedCoinNumber] = state;
         YandexSDK.Save();
     }
 }

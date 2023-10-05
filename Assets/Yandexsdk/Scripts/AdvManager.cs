@@ -24,7 +24,6 @@ public class AdvManager : MonoBehaviour
 #endif
         }
     }
-
     public void ShowRewardedAdv()
     {
         YandexSDK.ShowRewardedADV();
@@ -34,4 +33,6 @@ public class AdvManager : MonoBehaviour
     {
         advTimer = advBreak;
     }
+
+  
 }

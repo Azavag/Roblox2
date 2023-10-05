@@ -29,17 +29,23 @@ public class ShopChooseController : MonoBehaviour
         choosedPantsName = Progress.Instance.playerInfo.choosedPantsColor;
         choosedSpecialName = Progress.Instance.playerInfo.choosedSpecialColor;
 
+        shirtColorsArray[0].SetBuyState(true);
+        pantsColorsArray[0].SetBuyState(true);
+        Progress.Instance.playerInfo.colorsShirtBuyState[0] = true;
+        Progress.Instance.playerInfo.colorsPantsBuyState[0] = true;
         if (choosedShirtName == null && choosedPantsName == null && choosedSpecialName == null)
         {
-            ChooseShirt(shirtColorsArray[0]);
+            ChooseShirt(shirtColorsArray[0]);          
             ChoosePants(pantsColorsArray[0]);
+ 
+            YandexSDK.Save();
         }
 
         progressCounnter = 0;     
         foreach (ShopObjectController obj in shirtColorsArray)
         {
             obj.isBuy = Progress.Instance.playerInfo.colorsShirtBuyState[progressCounnter];
-            if (!obj.isBuy)
+            if (!obj.isBuy && progressCounnter != 0)
             {
                 obj.ShowLockImage(true);
             }
@@ -56,7 +62,7 @@ public class ShopChooseController : MonoBehaviour
         foreach (ShopObjectController obj in pantsColorsArray)
         {
             obj.isBuy = Progress.Instance.playerInfo.colorsPantsBuyState[progressCounnter];
-            if (!obj.isBuy)
+            if (!obj.isBuy && progressCounnter != 0)
                 obj.ShowLockImage(true);
             if (choosedPantsName != "" && obj.colorName == choosedPantsName)
             {
@@ -149,7 +155,7 @@ public class ShopChooseController : MonoBehaviour
         if (isReward)
             UnlockSkin(rewardingSkin);
     }
-
+    //Â jslib
     public void SetRewardingState()
     {
         isReward = true;

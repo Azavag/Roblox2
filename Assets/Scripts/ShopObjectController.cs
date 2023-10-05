@@ -12,6 +12,7 @@ public class ShopObjectController : MonoBehaviour
     [SerializeField] public bool isBuy;
     [SerializeField] public bool isChoose;
     [SerializeField] public bool isAdsSell;
+    [SerializeField] public bool isRateSell;
     [SerializeField] public int price;
     [SerializeField] public string colorName;
     GameObject lockImageObject, chooseImageObject;

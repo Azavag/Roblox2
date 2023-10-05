@@ -7,27 +7,28 @@ mergeInto(LibraryManager.library, {
     // 	myGameInstance.SendMessage('Yandex', 'SetPhoto', player.getPhoto("medium"));
   	// },
 
-  	// RateGame: function () {  
-    // 	ysdk.feedback.canReview()
-    //     .then(({ value, reason }) => {
-    //         if (value) {
-    //             ysdk.feedback.requestReview()
-    //                 .then(({ feedbackSent }) => {
-    //                     console.log(feedbackSent);
-    //                     if(feedback == true)
-    //                     {
-    //                       myGameInstance.SendMessage('LevelManager', 'hideRateGameWindow');
-    //                       myGameInstance.SendMessage('MoneyManager', 'AddMoneyForGamerate');
-    //                     }
-                        
+RateGameExtern: function () {  
+    	ysdk.feedback.canReview()
+        .then(({ value, reason }) => {
+            if (value) 
+            {
+                ysdk.feedback.requestReview()
+                    .then(({ feedbackSent }) => {
+                        console.log(feedbackSent);
+                        if(feedbackSent == true)
+                        {
+                          myGameInstance.SendMessage('ShopChooseController', 'SetRewardingState');                         
+                          myGameInstance.SendMessage('ShopChooseController', 'UnlockRewardSkin');
+                        }                  
+                    })
+            } 
+            else {
+                console.log(reason);
+                ysdk.auth.openAuthDialog()
+            }
+        })
+  	},
 
-    //                 })
-    //         } else {
-    //             console.log(reason);
-    //             ysdk.auth.openAuthDialog()
-    //         }
-    //     })
-  	// },
 
   //   RateGameExtern: function(){
   //   ysdk.feedback.canReview()

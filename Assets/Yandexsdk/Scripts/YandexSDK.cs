@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 using SimpleJSON;
+using UnityEngine.Rendering;
 
 public class YandexSDK : MonoBehaviour
 { 
@@ -39,6 +40,9 @@ public class YandexSDK : MonoBehaviour
     //Получение типа устройства
     [DllImport("__Internal")]
     private static extern string GetDevice();
+    //Оценка игры
+    [DllImport("__Internal")]
+    private static extern string RateGameExtern();
 
     //public event Action<string> LeaderBoardReady;
     //LeaderboardController leaderboard;
@@ -172,5 +176,14 @@ public class YandexSDK : MonoBehaviour
     public string GetDeviceType()
     {
         return deviceType;
+    }
+    static public void RateGame()
+    {
+#if !UNITY_EDITOR
+        RateGameExtern();
+#else 
+        Debug.Log("Оценка игры");
+#endif
+
     }
 }

@@ -6,9 +6,12 @@ using UnityEngine;
 public class BuySkinButtonController : MonoBehaviour
 {
     [SerializeField] MoneyManager moneyManager;
-    string advText = "Посмотреть рекламу";
+    string advText;
     string enAdvText = "View advertisement";
     string ruAdvText = "Посмотреть рекламу";
+    string rateText;
+    string enRateText = "Help to make game better";
+    string ruRateText = "Помоги улучшить игру";
     [SerializeField] GameObject coinImageObject;
     [SerializeField] TextMeshProUGUI buttonText;
     [SerializeField] ShopChooseController shopChooseController;
@@ -25,10 +28,12 @@ public class BuySkinButtonController : MonoBehaviour
         if(Language.isRusLang) 
         {
             advText = ruAdvText;
+            rateText = ruRateText;
         }
         else
         {
             advText = enAdvText;
+            rateText = enRateText;
         }
     }
     void Start()
@@ -40,13 +45,19 @@ public class BuySkinButtonController : MonoBehaviour
     public void ShowInfo(ShopObjectController shopObj)
     {
         tempShopObj = shopObj;
-        if (!tempShopObj.isAdsSell) 
+        if (!tempShopObj.isAdsSell && !tempShopObj.isRateSell) 
         {
             coinImageObject.SetActive(true);
             buttonText.fontSize = coinTextSize;
             buttonText.text = moneyManager.GetMoneyCount() + "/" + tempShopObj.price;
             return;
         }
+        else if(tempShopObj.isRateSell)         //За оценку игры
+        {
+            coinImageObject.SetActive(false);
+            buttonText.fontSize = adsTextSize;
+            buttonText.text = rateText;
+        }                                                           
         else
         {
             coinImageObject.SetActive(false);
@@ -63,17 +74,21 @@ public class BuySkinButtonController : MonoBehaviour
             soundController.Play("NegativeClick");
             return;
         }
-        if (!tempShopObj.isAdsSell)
+        if (!tempShopObj.isAdsSell && !tempShopObj.isRateSell)
         {
             shopChooseController.UnlockSkin(tempShopObj);
-            //Звук
             gameObject.SetActive(false);
             return;
         }
-        else if (tempShopObj.isAdsSell)     //Награда за рекламу
+        if (tempShopObj.isAdsSell)     //Награда за рекламу
         {
             shopChooseController.SetRewardSkin(tempShopObj);
             advManager.ShowRewardedAdv();
+        }
+        if(tempShopObj.isRateSell) 
+        {
+            shopChooseController.SetRewardSkin(tempShopObj);
+            YandexSDK.RateGame();
         }
     }
     //Ивент в анимации

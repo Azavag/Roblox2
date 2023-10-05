@@ -40,8 +40,6 @@ public class Progress : MonoBehaviour
             Instance = this;
             yandexSDK.Load();
             
-            playerInfo.colorsPantsBuyState[0] = true;
-            playerInfo.colorsShirtBuyState[0] = true;
         }
         else
         {

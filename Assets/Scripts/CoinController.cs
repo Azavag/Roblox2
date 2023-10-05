@@ -34,7 +34,7 @@ public class CoinController : MonoBehaviour
 ;       moneyManager.UpdateMoneyCount(moneyForCollect);
         isCoinCollect = true;
         coinObject.SetActive(false);
-        coinsCollectionController.GetCollectedCoinNumber(this);
+        coinsCollectionController.GetCollectedCoinNumber(this, true);
     }
 
     public int GetMoneyForCollect()
