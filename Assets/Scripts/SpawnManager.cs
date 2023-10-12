@@ -18,7 +18,8 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] InputGame inputGame;
     [SerializeField] HardLevelsNavigation levelsNavigation;
     [SerializeField] NavigationController navigationController;
-
+    [SerializeField] GameObject deathAlert;
+    Animator deathAlertanimator;
     private void Start()
     {
         lastSpawnPoint = Progress.Instance.playerInfo.spawnPointNumber;
@@ -27,6 +28,8 @@ public class SpawnManager : MonoBehaviour
         {
             spawnPointsList[i].AlreadySet(Progress.Instance.playerInfo.areSpawnpointsSet[i]);
         }
+
+        deathAlertanimator = deathAlert.GetComponent<Animator>();
     }
 
     public void UpdatePointNumber(SpawnPoint point)
@@ -49,21 +52,29 @@ public class SpawnManager : MonoBehaviour
     public void RespawnPlayer()
     {       
         deathMenu.SetActive(false);
+        deathAlert.SetActive(false);
         playerObject.SetActive(true);
         playerObject.transform.position = spawnPointsList[lastSpawnPoint].spawnCoordinates.position;
         inputGame.ShowCursorState(false);
         cameraObject.GetComponent<OrbitingCamera>().enabled = true;                        
     }
 
-    public void ShowDeathMenu()
+    public void BlockInput()
     {
-        advManager.ShowAdv();
         inputGame.ShowCursorState(true);
         playerObject.SetActive(false);
-        cameraObject.GetComponent<OrbitingCamera>().enabled = false;
-        deathMenu.SetActive(true);
+        cameraObject.GetComponent<OrbitingCamera>().enabled = false;       
     }
 
+    public IEnumerator DeathProccess()
+    {
+        BlockInput();
+        deathAlert.SetActive(true);
+        deathAlertanimator.SetBool("isDeath", true);
+        yield return new WaitForSeconds(1.5f);
+        deathMenu.SetActive(true);
+        advManager.ShowAdv();
+    }
     public void SaveSpawnpointState(SpawnPoint point)
     {
         int tempNumber = spawnPointsList.IndexOf(point);

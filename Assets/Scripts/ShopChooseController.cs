@@ -13,10 +13,11 @@ public class ShopChooseController : MonoBehaviour
     [SerializeField] GameObject buyButtonObject;
     [SerializeField] BuySkinButtonController buySkinButtonController;
     [SerializeField] SoundController soundController;
-    [SerializeField] ShopObjectController prevChoosedPants, prevChoosedShirt, prevChoosedSpecial;
+    ShopObjectController prevChoosedPants, prevChoosedShirt, prevChoosedSpecial;
     ShopObjectController rewardingSkin;
     int progressCounnter;
     bool isReward;
+
 
     private void Awake()
     {

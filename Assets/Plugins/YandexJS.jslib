@@ -24,12 +24,17 @@ RateGameExtern: function () {
             } 
             else {
                 console.log(reason);
-                ysdk.auth.openAuthDialog()
+                if(reason == "NO_AUTH")
+                  myGameInstance.SendMessage('RateGameController', 'ShowAuthWindow'); 
             }
         })
   	},
 
-
+    Auth: function()
+    {
+      ysdk.auth.openAuthDialog();
+      myGameInstance.SendMessage('RateGameController', 'CloseAuthWindow');  
+    },
   //   RateGameExtern: function(){
   //   ysdk.feedback.canReview()
   //   .then(({ value, reason }) => {
@@ -66,13 +71,18 @@ RateGameExtern: function () {
     }
     
   },
-
+  //Страничная реклама
   ShowIntersitialAdvExtern: function(){
     ysdk.adv.showFullscreenAdv({
       callbacks: {
+         onOpen: () => {
+          myGameInstance.SendMessage("SoundController", "MuteGame");         
+          console.log('Adv open.');
+        },
         onClose: function(wasShown) {
           console.log("Adv closed");
           myGameInstance.SendMessage('AdvManager', 'StartTimer');
+          myGameInstance.SendMessage("SoundController", "UnmuteGame");
         },
         onError: function(error) {
           // some action on error
@@ -144,11 +154,7 @@ RateGameExtern: function () {
         myGameInstance.SendMessage('LeaderboardController', 'OpenAuthAlert');  
     },
 
-    Auth: function()
-    {
-      ysdk.auth.openAuthDialog();
-      myGameInstance.SendMessage('LeaderboardController', 'CloseAuthWindow');  
-    },
+  
 
     GetLang : function()
     {

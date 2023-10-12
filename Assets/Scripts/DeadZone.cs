@@ -18,8 +18,9 @@ public class DeadZone : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            spawnManager.ShowDeathMenu();
             soundController.Play("Death");
+            StartCoroutine(spawnManager.DeathProccess());
+            //spawnManager.ShowDeathMenu();
         }
     }
 }

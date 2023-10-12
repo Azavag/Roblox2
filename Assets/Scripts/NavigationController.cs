@@ -10,6 +10,7 @@ public class NavigationController : MonoBehaviour
     [SerializeField] GameObject ingameCanvas;
     [SerializeField] GameObject shopCanvas;
     [SerializeField] GameObject startCanvas;
+    [SerializeField] GameObject alertCanvas;
     [SerializeField] Camera mainCamera;
     [SerializeField] Camera shopCamera;
     [SerializeField] GameObject playerObject;
@@ -37,6 +38,7 @@ public class NavigationController : MonoBehaviour
     {
         startCanvas.SetActive(true);
         ingameCanvas.SetActive(false);
+        alertCanvas.SetActive(false);
         shopCanvas.SetActive(isShop);
         settingsCanvas.SetActive(isSettings);
         EnableCharacterControl(isGame);
